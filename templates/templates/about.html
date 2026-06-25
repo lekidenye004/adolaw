@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About – WS & Jay Advocates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+        .about-hero { background: var(--light-gold); padding: 3rem 0; border-radius: 2rem; margin-top: 1rem; }
+        .team-grid .team-card {
+            background: #fff; padding: 1.5rem 1rem; border-radius: 1.25rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s; height: 100%; text-align: center;
+        }
+        .team-grid .team-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .team-grid .team-card img {
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+            border: 5px solid var(--gold); margin-bottom: 1rem;
+        }
+        .team-grid .team-card .role { color: var(--gold); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .location-box { background: var(--light-gold); padding: 2rem; border-radius: 1.25rem; border-left: 6px solid var(--gold); }
+        .location-box i { color: var(--gold); width: 30px; }
+        .map-container { border-radius: 1.25rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        @media (max-width: 768px) { .team-grid .team-card img { width: 100px; height: 100px; } }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" />
+                WS & Jay<span>Advocates</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('practice_areas') }}">Practice Areas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('booking') }}">Book a Consultation</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('testimonials') }}">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== FLASH MESSAGES ===== -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- ===== ABOUT HERO ===== -->
+    <section class="container about-hero">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-6">
+                <h2 class="section-title">About <span class="gold">Our Firm</span></h2>
+                <p class="lead">WS & Jay Advocates is a full-service law firm committed to delivering exceptional legal services.</p>
+                <p>Founded by experienced advocates, our firm blends deep legal knowledge with a personal touch. We serve clients across Kenya and beyond, handling complex legal matters with integrity and professionalism.</p>
+                <div class="row mt-4">
+                    <div class="col-sm-6">
+                        <h6><i class="fas fa-check-circle" style="color:var(--gold);"></i> 15+ Years</h6>
+                        <p>Combined legal experience.</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6><i class="fas fa-check-circle" style="color:var(--gold);"></i> 200+ Cases</h6>
+                        <p>Successfully handled.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ url_for('static', filename='images/lawyers-group.jpg') }}" alt="Our Team" class="img-fluid rounded-4 shadow-lg" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ATTORNEYS ===== -->
+    <section class="container my-5">
+        <h3 class="section-title text-center">Meet Our <span class="gold">Attorneys</span></h3>
+        <p class="section-subtitle text-center">Dedicated advocates ready to fight for your rights.</p>
+        <div class="row g-4 team-grid">
+            <div class="col-md-4">
+                <div class="team-card">
+                    <img src="{{ url_for('static', filename='images/team/lawyer1.jpg') }}" alt="Atty. John Doe" />
+                    <h5>John Doe</h5>
+                    <p class="role">Partner, Family Law</p>
+                    <p>John has over 15 years of experience in family and succession matters.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team-card">
+                    <img src="{{ url_for('static', filename='images/team/lawyer2.jpg') }}" alt="Atty. Jane Smith" />
+                    <h5>Jane Smith</h5>
+                    <p class="role">Partner, Corporate & Commercial</p>
+                    <p>Jane advises businesses on contracts, mergers, and regulatory compliance.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team-card">
+                    <img src="{{ url_for('static', filename='images/team/lawyer3.jpg') }}" alt="Atty. Robert Brown" />
+                    <h5>Robert Brown</h5>
+                    <p class="role">Associate, Criminal Defense</p>
+                    <p>Robert brings a decade of experience in criminal litigation and advocacy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LOCATION ===== -->
+    <section class="container my-5">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <h3 class="section-title">Our <span class="gold">Office</span></h3>
+                <div class="location-box">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Legal Street, Suite 400, Nairobi, Kenya</p>
+                    <p><i class="fas fa-phone"></i> +254 700 123 456</p>
+                    <p><i class="fas fa-envelope"></i> info@wsjayadvocates.com</p>
+                    <p><i class="fas fa-clock"></i> Mon – Fri: 9:00 AM – 6:00 PM</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255282.35853743783!2d36.68219672293599!3d-1.3028611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2s!4v1645112345678!5m2!1sen!2s" width="100%" height="280" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHATSAPP BUTTON ===== -->
+    <a href="https://wa.me/254700123456?text=Hello%20WS%20%26%20Jay%20Advocates%2C%20I%20need%20legal%20assistance." target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-gavel me-2"></i>WS & Jay Advocates</h5>
+                    <p>Dedicated legal representation for individuals and businesses.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h6>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="{{ url_for('practice_areas') }}">Practice Areas</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('booking') }}">Booking</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Newsletter</h6>
+                    <form>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Email">
+                            <button class="btn btn-primary" type="button">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2026 WS & Jay Advocates. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
